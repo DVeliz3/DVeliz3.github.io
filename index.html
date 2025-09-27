@@ -84,7 +84,6 @@
 
     #searchInput {
       width: 60%;
-      max-width: 400px;
       padding: 0.5em;
       font-size: 1em;
     }
@@ -124,16 +123,6 @@
       text-decoration: underline;
     }
 
-    #visorPDF {
-      margin-top: 2em;
-    }
-
-    iframe {
-      width: 100%;
-      height: 600px;
-      border: none;
-    }
-
     footer {
       background-color: #eee;
       text-align: center;
@@ -141,18 +130,16 @@
       margin-top: 2em;
     }
 
-    @media (max-width: 600px) {
-      #searchInput {
-        width: 90%;
-      }
-
-      iframe {
-        height: 400px;
-      }
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: 1px solid #ccc;
+      margin-top: 1em;
     }
   </style>
 </head>
 <body>
+ <!--Vista rapida-->
   <header>
     <h1>Biblioteca Digital</h1>
   </header>
@@ -185,10 +172,10 @@
         <ul id="listaLibros"></ul>
       </section>
 
-      <!-- Visor de PDF -->
+      <!-- Visor PDF -->
       <section id="visorPDF" class="hidden">
         <h3>Visualizando: <span id="nombreLibro"></span></h3>
-        <iframe id="pdfFrame" src=""></iframe>
+        <iframe id="pdfFrame" src="" allowfullscreen></iframe>
       </section>
     </section>
   </main>
@@ -208,7 +195,7 @@
         archivo: "libros/El_arte_de_la_guerra-Sun_Tzu.pdf"
       },
       {
-        titulo: "Historia de la corrupción en el Perú",
+        titulo: "Historia de la corrupcion en el Perú",
         autor: "Alfonso Quiroz",
         archivo: "libros/Historia_de_la_corrupcion_en_el_Peru_Alf.pdf"
       },
@@ -220,8 +207,8 @@
     ];
 
     function login() {
-      const usuario = document.getElementById('usuario').value.trim();
-      const contrasena = document.getElementById('contrasena').value.trim();
+      const usuario = document.getElementById('usuario').value;
+      const contrasena = document.getElementById('contrasena').value;
       const errorDiv = document.getElementById('error');
 
       if (usuario === USUARIO_VALIDO && contrasena === CONTRASENA_VALIDA) {
@@ -243,9 +230,9 @@
       document.getElementById('contrasena').value = "";
       document.getElementById('searchInput').value = "";
       document.getElementById('listaLibros').innerHTML = "";
+      document.getElementById('error').textContent = "";
       document.getElementById('visorPDF').classList.add('hidden');
       document.getElementById('pdfFrame').src = "";
-      document.getElementById('error').textContent = "";
     }
 
     function mostrarLibros(lista) {
@@ -281,10 +268,13 @@
     }
 
     function mostrarPDF(ruta, titulo) {
-      document.getElementById('pdfFrame').src = ruta;
+      const urlPDF = encodeURIComponent(window.location.origin + '/' + ruta);
+      const visorGoogle = `https://docs.google.com/gview?url=${urlPDF}&embedded=true`;
+      document.getElementById('pdfFrame').src = visorGoogle;
       document.getElementById('nombreLibro').textContent = titulo;
       document.getElementById('visorPDF').classList.remove('hidden');
     }
   </script>
 </body>
 </html>
+
