@@ -31,7 +31,7 @@
     <!-- Visor de PDF -->
     <section id="visorPDF" class="hidden" style="margin-top: 2em;">
       <h3>Visualizando: <span id="nombreLibro"></span></h3>
-      <iframe id="pdfFrame" src="" width="100%" height="500px" style="border: 1px solid #ccc;"></iframe>
+      <iframe id="pdfFrame" src="" width="100%" height="600px" style="border: 1px solid #ccc;"></iframe>
     </section>
   </section>
 </main>
@@ -45,9 +45,22 @@
   const CONTRASENA_VALIDA = "1235";
 
   const libros = [
-    { titulo: "El arte de la guerra", autor: "Sun Tzu", archivo: "libros/El_arte_de_la_guerra-Sun_Tzu.pdf" },
-    { titulo: "Historia de la corrupcion en el Perú", autor: "Alfonso Quiroz", archivo: "libros/Historia_de_la_corrupcion_en_el_Peru_Alf.pdf" },
-    { titulo: "Las cronicas de Narnia", autor: "C S Lewis", archivo: "libros/Las cronicas de Narnia La coleccion completa - C S Lewis.pdf" }
+    {
+      titulo: "El arte de la guerra",
+      autor: "Sun Tzu",
+      archivo: "https://tusitio.com/libros/El_arte_de_la_guerra-Sun_Tzu.pdf"
+    },
+    {
+      titulo: "Historia de la corrupción en el Perú",
+      autor: "Alfonso Quiroz",
+      archivo: "https://tusitio.com/libros/Historia_de_la_corrupcion_en_el_Peru_Alf.pdf"
+    },
+    {
+      titulo: "Las crónicas de Narnia",
+      autor: "C S Lewis",
+      archivo: "https://tusitio.com/libros/Las_cronicas_de_Narnia_La_coleccion_completa.pdf"
+    }
+    // Puedes agregar más libros con URLs públicas aquí
   ];
 
   function login() {
@@ -113,9 +126,11 @@
   }
 
   function mostrarPDF(ruta, titulo) {
-    document.getElementById('pdfFrame').src = ruta;
+    const viewerURL = "https://docs.google.com/gview?embedded=true&url=" + encodeURIComponent(ruta);
+    document.getElementById('pdfFrame').src = viewerURL;
     document.getElementById('nombreLibro').textContent = titulo;
     document.getElementById('visorPDF').classList.remove('hidden');
   }
 </script>
+
 
